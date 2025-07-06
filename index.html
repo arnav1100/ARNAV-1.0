@@ -43,14 +43,22 @@
     let currentPrediction = '';
     let lossCount = 0;
 
+    function smartPredict(period) {
+      const last3 = parseInt(period.slice(-3));
+      if (last3 % 4 === 0) return 'BIG';
+      else if (last3 % 3 === 0) return 'SMALL';
+      else if (last3 % 2 === 0) return 'BIG';
+      else return 'SMALL';
+    }
+
     function predict() {
       const input = document.getElementById('periodInput').value;
       if (!input || input.length < 3) {
         alert('Enter a valid full period number!');
         return;
       }
-      const lastDigit = parseInt(input.slice(-1));
-      currentPrediction = lastDigit % 2 === 0 ? 'SMALL' : 'BIG';
+
+      currentPrediction = smartPredict(input);
       document.getElementById('predictionResult').innerHTML = `Prediction: <b>${currentPrediction}</b>`;
       document.getElementById('resultButtons').style.display = 'block';
       document.getElementById('resultMessage').innerText = '';
@@ -75,7 +83,7 @@
 
       lossCount = result === 'LOSS' ? lossCount + 1 : 0;
       if (lossCount >= 3) {
-        alert('⚠️ 3 Consecutive Losses! Consider reviewing your strategy.');
+        alert('⚠️ 3 Consecutive Losses! Consider switching strategy.');
       }
 
       document.getElementById('resultMessage').innerText = `Result Recorded: ${result}`;
