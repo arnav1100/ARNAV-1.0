@@ -5,27 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Predictor 2.0</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #111; color: #fff; }
-    .card { background: #1c1c1c; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 10px #000; }
-    input { padding: 10px; font-size: 16px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none; }
-    button { padding: 10px 20px; font-size: 16px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
-    .btn-win { background: #4caf50; color: #fff; }
-    .btn-loss { background: #f44336; color: #fff; }
-    .btn-predict { background: #2196f3; color: #fff; }
-    .green { color: #4caf50; }
-    .red { color: #f44336; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background: #000;
+      color: #fff;
+    }
+    .card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px #00ffe1;
+    }
+    input {
+      padding: 12px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+      background: #1c1c1c;
+      color: #00ffe1;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-win {
+      background: #00c853;
+      color: #fff;
+      box-shadow: 0 0 10px #00c853;
+    }
+    .btn-loss {
+      background: #d50000;
+      color: #fff;
+      box-shadow: 0 0 10px #d50000;
+    }
+    .btn-predict {
+      background: #2962ff;
+      color: #fff;
+      box-shadow: 0 0 10px #2962ff;
+    }
+    .green { color: #00e676; }
+    .red { color: #ff1744; }
     .history li { margin: 5px 0; }
-    a { text-decoration: none; }
+    a { text-decoration: none; color: #00ffe1; }
+    .glow {
+      color: #00ffe1;
+      font-weight: bold;
+      text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 20px #00ffe1;
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>🔮 Predictor 2.0</h1>
-    <p style="margin-top: 5px; font-size: 14px; color: #aaa;">
-      Made by <a href="https://t.me/arnav_1100" target="_blank">@Arnav_1100</a> 🔥 | 
-      <a href="https://t.me/+fKHabYVx_shkMDk1" target="_blank">Join Telegram Channel 📢</a><br/>
-      <i>MAINTAIN 6 LEVELS!!</i>
+    <h1 class="glow">⚔️ Predictor 2.0 — REVERSED</h1>
+    <p style="margin-top: 5px; font-size: 14px;">
+      Made by <a href="https://t.me/arnav_1100" class="glow" target="_blank">@Arnav_1100</a> 🔥 | 
+      <a href="https://t.me/+fKHabYVx_shkMDk1" class="glow" target="_blank">Join Telegram Channel 📢</a><br/>
+      <span class="glow">MAINTAIN 6 LEVELS!!</span>
     </p>
 
     <input type="text" id="periodInput" placeholder="Enter Full Period Number" />
@@ -52,10 +96,14 @@
 
     function smartPredict(period) {
       const last3 = parseInt(period.slice(-3));
-      if (last3 % 4 === 0) return 'BIG';
-      else if (last3 % 3 === 0) return 'SMALL';
-      else if (last3 % 2 === 0) return 'BIG';
-      else return 'SMALL';
+      let result;
+      if (last3 % 4 === 0) result = 'BIG';
+      else if (last3 % 3 === 0) result = 'SMALL';
+      else if (last3 % 2 === 0) result = 'BIG';
+      else result = 'SMALL';
+
+      // 👇 Reversing the result
+      return result === 'BIG' ? 'SMALL' : 'BIG';
     }
 
     function predict() {
@@ -90,7 +138,7 @@
 
       lossCount = result === 'LOSS' ? lossCount + 1 : 0;
       if (lossCount >= 3) {
-        alert('⚠️ 3 Consecutive Losses! Consider switching strategy.');
+        alert('⚠️ 3 Consecutive Losses! Switch strategy or change logic.');
       }
 
       document.getElementById('resultMessage').innerText = `Result Recorded: ${result}`;
